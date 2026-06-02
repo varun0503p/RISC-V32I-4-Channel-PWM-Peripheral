@@ -1,0 +1,32 @@
+//-----------------------------------------------------------------
+// pwm_defs.v  (REPLACED: PWM Generator Register Map)
+//
+// Register map for the 4-Channel PWM peripheral.
+// Replaces counter_defs.v -- keep this filename unchanged.
+// Base address: 0x95000000
+//
+// Duty cycle formula:
+//   duty% = (CH_DUTY / PWM_PERIOD) * 100
+//   With PERIOD=1000: CH0=250(25%), CH1=500(50%), CH2=750(75%), CH3=1000(100%)
+//-----------------------------------------------------------------
+
+// Register offsets (byte address within peripheral space)
+`define PWM_PERIOD_REG  8'h00   // [15:0] PWM counter period
+`define CH0_DUTY_REG    8'h04   // [15:0] Channel 0 duty (25% default)
+`define CH1_DUTY_REG    8'h08   // [15:0] Channel 1 duty (50% default)
+`define CH2_DUTY_REG    8'h0C   // [15:0] Channel 2 duty (75% default)
+`define CH3_DUTY_REG    8'h10   // [15:0] Channel 3 duty (100% default)
+`define PWM_CTRL_REG    8'h14   // [3:0]  Enable bits: bit N enables channel N
+
+// Default values at reset (PERIOD=1000 for easy duty cycle math)
+`define PWM_PERIOD_DEFAULT  16'd1000
+`define CH0_DUTY_DEFAULT    16'd250    // 25%
+`define CH1_DUTY_DEFAULT    16'd500    // 50%
+`define CH2_DUTY_DEFAULT    16'd750    // 75%
+`define CH3_DUTY_DEFAULT    16'd1000   // 100%
+
+// PWM_CTRL bit positions
+`define PWM_CTRL_CH0_EN_B   0   // bit 0: enable channel 0 (switch V2)
+`define PWM_CTRL_CH1_EN_B   1   // bit 1: enable channel 1 (switch U2)
+`define PWM_CTRL_CH2_EN_B   2   // bit 2: enable channel 2 (switch U1)
+`define PWM_CTRL_CH3_EN_B   3   // bit 3: enable channel 3 (switch T2)
